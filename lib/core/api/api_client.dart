@@ -1,16 +1,20 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../storage/token_storage.dart';
 import 'api_exception.dart';
 import 'api_response.dart';
 
+const _phpUrl =
+    'https://www.mobilyamevime.com/furnituresnzk/php/mobilyamevimeapp/index.php';
+const _proxyUrl = 'https://mobilyamevime-app.vercel.app/api/proxy';
+
 final apiClientProvider = Provider<ApiClient>((ref) {
   return ApiClient(
     dio: Dio(
       BaseOptions(
-        baseUrl:
-            'https://www.mobilyamevime.com/furnituresnzk/php/mobilyamevimeapp/index.php',
+        baseUrl: kIsWeb ? _proxyUrl : _phpUrl,
         connectTimeout: const Duration(seconds: 15),
         receiveTimeout: const Duration(seconds: 20),
         headers: {'Content-Type': 'application/json'},

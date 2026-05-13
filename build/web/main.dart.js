@@ -97926,7 +97926,7 @@ A.aE_.prototype={
 $3(a,b,c){return B.Ib},
 $S:76}
 A.aHn.prototype={
-$1(a){var s=A.b_4("https://www.mobilyamevime.com/furnituresnzk/php/mobilyamevimeapp/index.php",B.GC,A.aC(["Content-Type","application/json"],t.N,t.z),B.GG),r=new A.R5(A.b([B.DN],t.i6))
+$1(a){var s=A.b_4("https://mobilyamevime-app.vercel.app/api/proxy",B.GC,A.aC(["Content-Type","application/json"],t.N,t.z),B.GG),r=new A.R5(A.b([B.DN],t.i6))
 r.K(r,B.Li)
 r=new A.aaX($,r,$,new A.aeu(51200),!1)
 r.a0q$=s
