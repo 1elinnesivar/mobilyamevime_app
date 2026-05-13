@@ -1,5 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+
+const _imgProxy = 'https://mobilyamevime-app.vercel.app/api/img?url=';
+
+String _resolveUrl(String url) {
+  if (!kIsWeb) return url;
+  return '$_imgProxy${Uri.encodeComponent(url)}';
+}
 
 class ProductImageView extends StatelessWidget {
   const ProductImageView({
@@ -19,18 +27,24 @@ class ProductImageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final resolved = (imageUrl == null || imageUrl!.isEmpty)
+        ? null
+        : _resolveUrl(imageUrl!);
+
     return ClipRRect(
       borderRadius: BorderRadius.circular(borderRadius),
       child: SizedBox(
         width: width,
         height: height,
-        child: imageUrl == null || imageUrl!.isEmpty
+        child: resolved == null
             ? const _ProductPlaceholder()
             : CachedNetworkImage(
-                imageUrl: imageUrl!,
+                imageUrl: resolved,
                 fit: fit,
-                placeholder: (context, url) => const _ProductPlaceholder(loading: true),
-                errorWidget: (context, url, error) => const _ProductPlaceholder(),
+                placeholder: (context, url) =>
+                    const _ProductPlaceholder(loading: true),
+                errorWidget: (context, url, error) =>
+                    const _ProductPlaceholder(),
               ),
       ),
     );
