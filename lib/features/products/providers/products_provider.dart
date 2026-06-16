@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/api/api_client.dart';
 import '../../../core/api/api_exception.dart';
+import '../../../core/utils/provider_cache.dart';
 import '../../auth/providers/auth_provider.dart';
 import '../data/products_repository.dart';
 import '../models/product.dart';
@@ -14,6 +15,7 @@ final productsRepositoryProvider = Provider<ProductsRepository>((ref) {
 
 final productDetailProvider =
     FutureProvider.autoDispose.family<ProductDetail, int>((ref, id) {
+  ref.cacheFor(const Duration(minutes: 5));
   return _loadDetail(ref, id);
 });
 
@@ -30,6 +32,7 @@ Future<ProductDetail> _loadDetail(Ref ref, int id) async {
 
 final productsControllerProvider =
     ChangeNotifierProvider.autoDispose<ProductsController>((ref) {
+  ref.cacheFor(const Duration(minutes: 5));
   return ProductsController(
     repository: ref.watch(productsRepositoryProvider),
     onUnauthorized: () => ref.read(authControllerProvider).forceLogout(),

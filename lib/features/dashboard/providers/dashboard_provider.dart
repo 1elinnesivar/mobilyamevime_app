@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/api/api_client.dart';
 import '../../../core/api/api_exception.dart';
+import '../../../core/utils/provider_cache.dart';
 import '../../auth/providers/auth_provider.dart';
 import '../data/dashboard_repository.dart';
 
@@ -10,6 +11,7 @@ final dashboardRepositoryProvider = Provider<DashboardRepository>((ref) {
 });
 
 final dashboardSummaryProvider = FutureProvider.autoDispose<DashboardSummary>((ref) {
+  ref.cacheFor(const Duration(minutes: 2));
   return _loadSummary(ref);
 });
 
