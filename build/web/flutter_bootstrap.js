@@ -35,8 +35,15 @@ if (!window._flutter) {
 }
 _flutter.buildConfig = {"engineRevision":"42d3d75a56efe1a2e9902f52dc8006099c45d937","builds":[{"compileTarget":"dart2js","renderer":"canvaskit","mainJsPath":"main.dart.js"},{}]};
 
+
+// Assets are loaded from /v2/assets/ (rewritten to /assets/ in vercel.json).
+// The old /assets/ URLs were served as immutable for a year, so browsers kept
+// an icon font without newly added icons. Skipped on localhost for flutter run.
+const assetConfig = location.hostname === 'localhost' ? {} : { assetBase: '/v2/' };
+
 _flutter.loader.load({
+  config: assetConfig,
   serviceWorkerSettings: {
-    serviceWorkerVersion: "2672432451" /* Flutter's service worker is deprecated and will be removed in a future Flutter release. */
-  }
+    serviceWorkerVersion: "3928813563" /* Flutter's service worker is deprecated and will be removed in a future Flutter release. */,
+  },
 });
