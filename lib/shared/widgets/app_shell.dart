@@ -15,7 +15,8 @@ class AppShell extends StatelessWidget {
     final index = switch (location) {
       '/products' => 1,
       '/suppliers' => 2,
-      '/settings' => 3,
+      '/calculator' => 3,
+      '/settings' => 4,
       _ => 0,
     };
 
@@ -36,6 +37,8 @@ class AppShell extends StatelessWidget {
               case 2:
                 context.go('/suppliers');
               case 3:
+                context.go('/calculator');
+              case 4:
                 context.go('/settings');
             }
           },
@@ -54,6 +57,11 @@ class AppShell extends StatelessWidget {
               icon: Icon(Icons.store_outlined),
               selectedIcon: Icon(Icons.store_rounded),
               label: 'Tedarikçi',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.calculate_outlined),
+              selectedIcon: Icon(Icons.calculate_rounded),
+              label: 'Hesapla',
             ),
             NavigationDestination(
               icon: Icon(Icons.tune_outlined),

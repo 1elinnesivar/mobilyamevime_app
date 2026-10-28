@@ -77,6 +77,7 @@ dart run flutter_launcher_icons
 - Urun detay ve modul listesi
 - Tedarikci listesi
 - Tedarikci detay ve fiyat listeleri
+- Maliyet hesaplayici (urun ara, modul sec, liste/alis toplami, carpan ve nakliye)
 - Ayarlar / cikis
 
 ## Test Sirasi
@@ -89,4 +90,5 @@ dart run flutter_launcher_icons
 6. Urun detayinda tedarikci adina tiklayip tedarikci detaya gec.
 7. Fiyat listeleri sekmesinde dosya acmayi test et.
 8. Tedarikci listesini ara.
-9. Ayarlar ekranindan cikis yap.
+9. Hesapla sekmesinde urun ara, modul ekle; carpan ve nakliye modlarini dene.
+10. Ayarlar ekranindan cikis yap.

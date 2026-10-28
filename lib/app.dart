@@ -6,6 +6,7 @@ import 'core/theme/app_theme.dart';
 import 'core/theme/theme_provider.dart';
 import 'features/auth/providers/auth_provider.dart';
 import 'features/auth/screens/login_screen.dart';
+import 'features/calculator/screens/calculator_screen.dart';
 import 'features/dashboard/screens/dashboard_screen.dart';
 import 'features/products/screens/product_detail_screen.dart';
 import 'features/products/screens/products_screen.dart';
@@ -56,6 +57,10 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: '/suppliers',
             builder: (context, state) => const SuppliersScreen(),
+          ),
+          GoRoute(
+            path: '/calculator',
+            builder: (context, state) => const CalculatorScreen(),
           ),
           GoRoute(
             path: '/settings',
