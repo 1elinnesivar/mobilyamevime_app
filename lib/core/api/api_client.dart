@@ -8,7 +8,10 @@ import 'api_response.dart';
 
 const _phpUrl =
     'https://www.mobilyamevime.com/furnituresnzk/php/mobilyamevimeapp/index.php';
-const _proxyUrl = 'https://mobilyamevime-app.vercel.app/api/proxy';
+
+// Web goes through api/proxy.js of whichever deployment serves the app, so
+// it keeps working when the Vercel project or domain changes.
+String get _proxyUrl => '${Uri.base.origin}/api/proxy';
 
 final apiClientProvider = Provider<ApiClient>((ref) {
   return ApiClient(

@@ -44,6 +44,6 @@ const assetConfig = location.hostname === 'localhost' ? {} : { assetBase: '/v2/'
 _flutter.loader.load({
   config: assetConfig,
   serviceWorkerSettings: {
-    serviceWorkerVersion: "3928813563" /* Flutter's service worker is deprecated and will be removed in a future Flutter release. */,
+    serviceWorkerVersion: "4166085881" /* Flutter's service worker is deprecated and will be removed in a future Flutter release. */,
   },
 });

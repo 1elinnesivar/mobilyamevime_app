@@ -2,11 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 
-const _imgProxy = 'https://mobilyamevime-app.vercel.app/api/img?url=';
-
+// Web loads images through api/img.js of the serving deployment (CORS).
 String _resolveUrl(String url) {
   if (!kIsWeb) return url;
-  return '$_imgProxy${Uri.encodeComponent(url)}';
+  return '${Uri.base.origin}/api/img?url=${Uri.encodeComponent(url)}';
 }
 
 class ProductImageView extends StatelessWidget {
