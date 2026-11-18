@@ -78,6 +78,7 @@ dart run flutter_launcher_icons
 - Tedarikci listesi
 - Tedarikci detay ve fiyat listeleri
 - Maliyet hesaplayici (urun ara, modul sec, liste/alis toplami, carpan ve nakliye)
+- Urun etiketleri (kat bilgisi, etiket tarihi, kat degistirme, etiketi kaldirma, etiket talepleri; katlar my-admin panelindeki listeden gelir)
 - Ayarlar / cikis
 
 ## Test Sirasi
@@ -91,4 +92,5 @@ dart run flutter_launcher_icons
 7. Fiyat listeleri sekmesinde dosya acmayi test et.
 8. Tedarikci listesini ara.
 9. Hesapla sekmesinde urun ara, modul ekle; carpan ve nakliye modlarini dene.
-10. Ayarlar ekranindan cikis yap.
+10. Panel > Urun Etiketleri: kat degistir, etiket talebi gonder; talebin my-admin etiket sayfasinda gorundugunu kontrol et.
+11. Ayarlar ekranindan cikis yap.

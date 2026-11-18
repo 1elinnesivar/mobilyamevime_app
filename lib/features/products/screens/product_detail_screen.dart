@@ -24,6 +24,14 @@ class ProductDetailScreen extends ConsumerWidget {
       backgroundColor: col.bg,
       appBar: AppBar(
         title: const Text('Ürün Detayı'),
+        actions: [
+          TextButton.icon(
+            onPressed: () => context.push('/label-request?product=$productId'),
+            icon: const Icon(Icons.sell_outlined, size: 18),
+            label: const Text('Etiket talebi'),
+          ),
+          const SizedBox(width: 8),
+        ],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(1),
           child: Container(height: 1, color: col.border),

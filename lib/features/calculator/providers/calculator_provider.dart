@@ -1,35 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../core/api/api_exception.dart';
-import '../../../core/utils/provider_cache.dart';
-import '../../auth/providers/auth_provider.dart';
-import '../../products/models/product.dart';
 import '../../products/models/product_detail.dart';
-import '../../products/providers/products_provider.dart';
 import '../models/calculator_line.dart';
 
 /// Not autoDispose: the selection survives tab switches for the session.
 final calculatorControllerProvider =
     ChangeNotifierProvider<CalculatorController>((ref) {
   return CalculatorController();
-});
-
-/// Separate from productsControllerProvider so searching here does not
-/// change the Products tab's search state.
-final calculatorSearchProvider =
-    FutureProvider.autoDispose.family<List<Product>, String>((ref, query) async {
-  ref.cacheFor(const Duration(minutes: 2));
-  try {
-    final result =
-        await ref.watch(productsRepositoryProvider).list(page: 1, search: query);
-    return result.items;
-  } on ApiException catch (error) {
-    if (error.isUnauthorized) {
-      await ref.read(authControllerProvider).forceLogout();
-    }
-    rethrow;
-  }
 });
 
 class CalculatorController extends ChangeNotifier {

@@ -11,6 +11,7 @@ import '../../../core/utils/currency_formatter.dart';
 import '../../../shared/widgets/async_state_view.dart';
 import '../../../shared/widgets/product_image_view.dart';
 import '../../products/models/product.dart';
+import '../../products/providers/products_provider.dart';
 import '../models/calculator_line.dart';
 import '../providers/calculator_provider.dart';
 import '../widgets/module_picker_sheet.dart';
@@ -298,14 +299,14 @@ class _SearchResults extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final results = ref.watch(calculatorSearchProvider(query));
+    final results = ref.watch(productSearchProvider(query));
     final calc = ref.watch(calculatorControllerProvider);
 
     return results.when(
       loading: () => const LoadingView(),
       error: (error, stackTrace) => ErrorStateView(
         message: 'Ürünler yüklenemedi.',
-        onRetry: () => ref.invalidate(calculatorSearchProvider(query)),
+        onRetry: () => ref.invalidate(productSearchProvider(query)),
       ),
       data: (items) {
         if (items.isEmpty) {

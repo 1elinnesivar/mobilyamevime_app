@@ -7,6 +7,7 @@ import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/currency_formatter.dart';
 import '../../../shared/widgets/async_state_view.dart';
 import '../../../shared/widgets/product_image_view.dart';
+import '../../labels/providers/labels_provider.dart';
 import '../providers/dashboard_provider.dart';
 
 class DashboardScreen extends ConsumerWidget {
@@ -15,6 +16,12 @@ class DashboardScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final summary = ref.watch(dashboardSummaryProvider);
+    final openLabelRequests = ref
+            .watch(labelRequestsProvider)
+            .valueOrNull
+            ?.where((r) => r.isOpen)
+            .length ??
+        0;
     final col = context.col;
 
     return Scaffold(
@@ -116,6 +123,17 @@ class DashboardScreen extends ConsumerWidget {
                     ],
                   );
                 },
+              ),
+              const SizedBox(height: 12),
+              _ShortcutCard(
+                icon: Icons.sell_rounded,
+                title: 'Ürün Etiketleri',
+                subtitle: openLabelRequests > 0
+                    ? '$openLabelRequests açık etiket talebi bekliyor'
+                    : 'Kat bilgisi, etiket tarihleri ve talepler',
+                badge: openLabelRequests > 0 ? '$openLabelRequests' : null,
+                onTap: () => context.push(
+                    openLabelRequests > 0 ? '/labels?tab=talepler' : '/labels'),
               ),
               const SizedBox(height: 24),
               Row(
@@ -356,6 +374,101 @@ class _MetricCard extends StatelessWidget {
             ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _ShortcutCard extends StatelessWidget {
+  const _ShortcutCard({
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    required this.onTap,
+    this.badge,
+  });
+
+  final IconData icon;
+  final String title;
+  final String subtitle;
+  final VoidCallback onTap;
+  final String? badge;
+
+  @override
+  Widget build(BuildContext context) {
+    final col = context.col;
+    return Container(
+      decoration: BoxDecoration(
+        color: col.card,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: col.border),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(14),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(14),
+          onTap: onTap,
+          splashColor: AppTheme.gold.withValues(alpha: 0.05),
+          child: Padding(
+            padding: const EdgeInsets.all(14),
+            child: Row(
+              children: [
+                Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: AppTheme.gold.withValues(alpha: 0.14),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(icon, color: AppTheme.gold, size: 20),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: TextStyle(
+                          color: col.textPrimary,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        subtitle,
+                        style:
+                            TextStyle(color: col.textSecondary, fontSize: 12),
+                      ),
+                    ],
+                  ),
+                ),
+                if (badge != null) ...[
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                    decoration: BoxDecoration(
+                      color: AppTheme.gold,
+                      borderRadius: BorderRadius.circular(999),
+                    ),
+                    child: Text(
+                      badge!,
+                      style: const TextStyle(
+                        color: Color(0xFF070B18),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 6),
+                ],
+                Icon(Icons.chevron_right_rounded, color: col.textMuted),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

@@ -30,6 +30,23 @@ Future<ProductDetail> _loadDetail(Ref ref, int id) async {
   }
 }
 
+/// One-off product search (calculator, label requests). Separate from
+/// productsControllerProvider so it does not change the Products tab's search.
+final productSearchProvider =
+    FutureProvider.autoDispose.family<List<Product>, String>((ref, query) async {
+  ref.cacheFor(const Duration(minutes: 2));
+  try {
+    final result =
+        await ref.watch(productsRepositoryProvider).list(page: 1, search: query);
+    return result.items;
+  } on ApiException catch (error) {
+    if (error.isUnauthorized) {
+      await ref.read(authControllerProvider).forceLogout();
+    }
+    rethrow;
+  }
+});
+
 final productsControllerProvider =
     ChangeNotifierProvider.autoDispose<ProductsController>((ref) {
   ref.cacheFor(const Duration(minutes: 5));

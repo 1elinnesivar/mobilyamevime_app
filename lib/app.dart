@@ -8,6 +8,8 @@ import 'features/auth/providers/auth_provider.dart';
 import 'features/auth/screens/login_screen.dart';
 import 'features/calculator/screens/calculator_screen.dart';
 import 'features/dashboard/screens/dashboard_screen.dart';
+import 'features/labels/screens/label_request_screen.dart';
+import 'features/labels/screens/labels_screen.dart';
 import 'features/products/screens/product_detail_screen.dart';
 import 'features/products/screens/products_screen.dart';
 import 'features/settings/screens/settings_screen.dart';
@@ -67,6 +69,19 @@ final routerProvider = Provider<GoRouter>((ref) {
             builder: (context, state) => const SettingsScreen(),
           ),
         ],
+      ),
+      GoRoute(
+        path: '/labels',
+        builder: (context, state) => LabelsScreen(
+          initialTab: state.uri.queryParameters['tab'] == 'talepler' ? 1 : 0,
+        ),
+      ),
+      GoRoute(
+        path: '/label-request',
+        builder: (context, state) => LabelRequestScreen(
+          productId: int.tryParse(state.uri.queryParameters['product'] ?? ''),
+          labelKey: state.uri.queryParameters['label'],
+        ),
       ),
       GoRoute(
         path: '/products/:id',
